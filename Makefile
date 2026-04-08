@@ -27,13 +27,13 @@ morning:            ## ☀️  Morning briefing — agenda, emails, tasks (@claw
 	$(PYTHON) $(ADW_DIR)/good_morning.py
 
 sync:               ## 🎙️  Sync Fathom meetings → Todoist (@clawdia)
-	$(PYTHON) $(ADW_DIR)/sync_meetings.py
+	$(PYTHON) $(ADW_DIR)/custom/sync_meetings.py
 
 triage:             ## 📧 Email triage (@clawdia)
-	$(PYTHON) $(ADW_DIR)/email_triage.py
+	$(PYTHON) $(ADW_DIR)/custom/email_triage.py
 
 review:             ## 📋 Organize tasks in Todoist (@clawdia)
-	$(PYTHON) $(ADW_DIR)/review_todoist.py
+	$(PYTHON) $(ADW_DIR)/custom/review_todoist.py
 
 memory:             ## 🧠 Consolidate memory (@clawdia)
 	$(PYTHON) $(ADW_DIR)/memory_sync.py
@@ -42,22 +42,22 @@ eod:                ## 🌙 End of day consolidation — memory, logs, learnings
 	$(PYTHON) $(ADW_DIR)/end_of_day.py
 
 dashboard:          ## 📊 Consolidated dashboard — 360 business view (@clawdia)
-	$(PYTHON) $(ADW_DIR)/dashboard.py
+	$(PYTHON) $(ADW_DIR)/custom/dashboard.py
 
 fin-pulse:          ## 💰 Financial Pulse — daily financial snapshot (@flux)
-	$(PYTHON) $(ADW_DIR)/financial_pulse.py
+	$(PYTHON) $(ADW_DIR)/custom/financial_pulse.py
 
 youtube:            ## 📺 YouTube Report — channel analytics (@pixel)
-	$(PYTHON) $(ADW_DIR)/youtube_report.py
+	$(PYTHON) $(ADW_DIR)/custom/youtube_report.py
 
 instagram:          ## 📸 Instagram Report — profile analytics (@pixel)
-	$(PYTHON) $(ADW_DIR)/instagram_report.py
+	$(PYTHON) $(ADW_DIR)/custom/instagram_report.py
 
 linkedin:           ## 💼 LinkedIn Report — profile analytics (@pixel)
-	$(PYTHON) $(ADW_DIR)/linkedin_report.py
+	$(PYTHON) $(ADW_DIR)/custom/linkedin_report.py
 
 social:             ## 📊 Social Analytics — consolidated cross-platform report (@pixel)
-	$(PYTHON) $(ADW_DIR)/social_analytics.py
+	$(PYTHON) $(ADW_DIR)/custom/social_analytics.py
 
 licensing:          ## 📊 Licensing Daily — daily open source growth (@atlas)
 	$(PYTHON) $(ADW_DIR)/licensing_daily.py
@@ -65,7 +65,7 @@ licensing:          ## 📊 Licensing Daily — daily open source growth (@atlas
 # --- Weekly financial routines ---
 
 fin-weekly:         ## 📊 Financial Weekly — weekly financial report (@flux)
-	$(PYTHON) $(ADW_DIR)/financial_weekly.py
+	$(PYTHON) $(ADW_DIR)/custom/financial_weekly.py
 
 licensing-weekly:   ## 📊 Licensing Weekly — weekly open source growth (@atlas)
 	$(PYTHON) $(ADW_DIR)/licensing_weekly.py
@@ -73,10 +73,10 @@ licensing-weekly:   ## 📊 Licensing Weekly — weekly open source growth (@atl
 # --- Monthly routines ---
 
 fin-close:          ## 📋 Monthly Close — monthly close kickoff (@flux)
-	$(PYTHON) $(ADW_DIR)/monthly_close.py
+	$(PYTHON) $(ADW_DIR)/custom/monthly_close.py
 
 community-month:    ## 📊 Community Monthly — monthly community report (@pulse)
-	$(PYTHON) $(ADW_DIR)/community_monthly.py
+	$(PYTHON) $(ADW_DIR)/custom/community_monthly.py
 
 licensing-month:    ## 📊 Licensing Monthly — monthly open source growth (@atlas)
 	$(PYTHON) $(ADW_DIR)/licensing_monthly.py
@@ -87,28 +87,28 @@ weekly:             ## 📊 Full weekly review (@clawdia)
 	$(PYTHON) $(ADW_DIR)/weekly_review.py
 
 health:             ## 🏥 Weekly health check-in (@kai)
-	$(PYTHON) $(ADW_DIR)/health_checkin.py
+	$(PYTHON) $(ADW_DIR)/custom/health_checkin.py
 
 trends:             ## 📈 Weekly trend analysis — community, GitHub, financial (@clawdia)
-	$(PYTHON) $(ADW_DIR)/trends.py
+	$(PYTHON) $(ADW_DIR)/custom/trends.py
 
 linear:             ## 🗂️  Linear review — issues in review, blockers, stale (@atlas)
-	$(PYTHON) $(ADW_DIR)/linear_review.py
+	$(PYTHON) $(ADW_DIR)/custom/linear_review.py
 
 community:          ## 📣 Daily Discord community pulse (@pulse)
-	$(PYTHON) $(ADW_DIR)/community_daily.py
+	$(PYTHON) $(ADW_DIR)/custom/community_daily.py
 
 community-week:     ## 📊 Weekly Discord community report (@pulse)
-	$(PYTHON) $(ADW_DIR)/community_weekly.py
+	$(PYTHON) $(ADW_DIR)/custom/community_weekly.py
 
 strategy:           ## 🎯 Weekly Strategy Digest — consolidated business view (@sage)
-	$(PYTHON) $(ADW_DIR)/strategy_digest.py
+	$(PYTHON) $(ADW_DIR)/custom/strategy_digest.py
 
 github:             ## 🐙 GitHub repos review — PRs, issues, stars (@atlas)
-	$(PYTHON) $(ADW_DIR)/github_review.py
+	$(PYTHON) $(ADW_DIR)/custom/github_review.py
 
 faq:                ## FAQ Sync — update community FAQ (Discord + GitHub) (@pulse)
-	$(PYTHON) $(ADW_DIR)/faq_sync.py
+	$(PYTHON) $(ADW_DIR)/custom/faq_sync.py
 
 # --- Combos ---
 

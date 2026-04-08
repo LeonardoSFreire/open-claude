@@ -1,27 +1,40 @@
-"""Reports endpoint — list and serve report files."""
+"""Reports endpoint — auto-discovers HTML/MD reports in workspace/."""
 
 import re
-from datetime import datetime
 from flask import Blueprint, jsonify, request, Response, abort
 from routes._helpers import WORKSPACE, safe_read
 
 bp = Blueprint("reports", __name__)
 
-REPORT_DIRS = {
-    "workspace/daily-logs": "daily",
-    "workspace/community/reports": "community",
-    "workspace/social/reports": "social",
-    "workspace/finance/reports": "financial",
-    "workspace/projects/reports": "projects",
-    "workspace/strategy/digests": "strategy",
+# Area detection from path
+AREA_MAP = {
+    "daily-logs": "daily",
+    "community": "community",
+    "social": "social",
+    "finance": "financial",
+    "projects": "projects",
+    "strategy": "strategy",
+    "personal": "personal",
+    "meetings": "meetings",
+    "courses": "courses",
 }
+
+
+def _detect_area(rel_path: str) -> str:
+    """Detect area from the file path."""
+    parts = rel_path.lower().split("/")
+    for part in parts:
+        for key, area in AREA_MAP.items():
+            if key in part:
+                return area
+    return "other"
 
 
 def _detect_type(name: str) -> str:
     low = name.lower()
-    if "weekly" in low or "semanal" in low:
+    if "weekly" in low:
         return "weekly"
-    if "monthly" in low or "mensal" in low:
+    if "monthly" in low:
         return "monthly"
     return "daily"
 
@@ -38,22 +51,32 @@ def _extract_date(name: str) -> str | None:
 
 
 def _list_reports() -> list[dict]:
+    """Scan entire workspace/ for HTML and MD report files."""
     reports = []
-    for rel_dir, area in REPORT_DIRS.items():
-        dirpath = WORKSPACE / rel_dir
-        if not dirpath.is_dir():
+    workspace_dir = WORKSPACE / "workspace"
+    if not workspace_dir.is_dir():
+        return reports
+
+    for f in workspace_dir.rglob("*"):
+        if not f.is_file():
             continue
-        for f in dirpath.rglob("*"):
-            if f.is_file() and f.suffix.lower() in (".html", ".md"):
-                reports.append({
-                    "path": str(f.relative_to(WORKSPACE)),
-                    "name": f.stem,
-                    "area": area,
-                    "type": _detect_type(f.name),
-                    "date": _extract_date(f.name),
-                    "extension": f.suffix,
-                    "modified": f.stat().st_mtime,
-                })
+        if f.suffix.lower() not in (".html", ".md"):
+            continue
+        # Skip .gitkeep and hidden files
+        if f.name.startswith("."):
+            continue
+
+        rel = str(f.relative_to(WORKSPACE))
+        reports.append({
+            "path": rel,
+            "name": f.stem,
+            "area": _detect_area(rel),
+            "type": _detect_type(f.name),
+            "date": _extract_date(f.name),
+            "extension": f.suffix,
+            "modified": f.stat().st_mtime,
+        })
+
     reports.sort(key=lambda x: x.get("modified", 0), reverse=True)
     return reports
 
@@ -62,7 +85,6 @@ def _list_reports() -> list[dict]:
 def list_reports():
     reports = _list_reports()
 
-    # Filter by query params
     area = request.args.get("area")
     rtype = request.args.get("type")
     date = request.args.get("date")
@@ -82,7 +104,6 @@ def get_report(filepath):
     full = WORKSPACE / filepath
     if not full.is_file():
         abort(404, description="Report not found")
-    # Security: ensure path is inside workspace
     try:
         full.resolve().relative_to(WORKSPACE.resolve())
     except ValueError:

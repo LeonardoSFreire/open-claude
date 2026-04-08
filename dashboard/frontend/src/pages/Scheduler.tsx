@@ -230,64 +230,6 @@ export default function Scheduler() {
         </div>
       )}
 
-      {/* Docker Containers */}
-      {services.filter(s => (s as any).category === 'docker').length > 0 && (
-        <>
-          <h2 className="text-lg font-semibold text-[#F9FAFB] mb-4">
-            Docker Containers
-            <span className="text-[#667085] text-sm font-normal ml-2">
-              ({services.filter(s => (s as any).category === 'docker' && s.running).length}/{services.filter(s => (s as any).category === 'docker').length} running)
-            </span>
-          </h2>
-          <div className="bg-[#182230] border border-[#344054] rounded-xl overflow-hidden mb-10">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-[#667085] text-xs uppercase tracking-wider bg-black/20">
-                  <th className="text-left p-3">Container</th>
-                  <th className="text-left p-3">Image</th>
-                  <th className="text-left p-3">Status</th>
-                  <th className="text-right p-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {services.filter(s => (s as any).category === 'docker').map(svc => (
-                  <tr key={svc.id} className="border-t border-[#344054]/50 hover:bg-white/5">
-                    <td className="p-3 text-[#F9FAFB] font-medium">{svc.name}</td>
-                    <td className="p-3 text-xs text-[#667085]">{svc.description}</td>
-                    <td className="p-3">
-                      <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded ${
-                        svc.running ? 'bg-[#00FFA7]/10 text-[#00FFA7]' : 'bg-red-500/10 text-red-400'
-                      }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${svc.running ? 'bg-[#00FFA7]' : 'bg-red-400'}`} />
-                        {svc.running ? 'Running' : 'Stopped'}
-                      </span>
-                    </td>
-                    <td className="p-3 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => openTerminal(svc.id)}
-                          className="text-xs px-2 py-1 rounded bg-white/5 text-[#D0D5DD] hover:text-[#00FFA7] transition-colors"
-                        >
-                          Logs
-                        </button>
-                        <button
-                          onClick={() => handleAction(svc.id, svc.running ? 'stop' : 'start')}
-                          className={`text-xs px-2 py-1 rounded transition-colors ${
-                            svc.running ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#00FFA7]/10 text-[#00FFA7] hover:bg-[#00FFA7]/20'
-                          }`}
-                        >
-                          {svc.running ? 'Stop' : 'Start'}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
-      )}
-
       {/* Scheduled Tasks */}
       <h2 className="text-lg font-semibold text-[#F9FAFB] mb-4">
         Scheduled Routines <span className="text-[#667085] text-sm font-normal">({tasks.length})</span>

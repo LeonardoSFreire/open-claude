@@ -16,7 +16,7 @@ OpenClaude is a file-based, git-friendly framework. Everything is markdown, YAML
 │   └───┬────┴───┬───┴───┬───┴────┬───┴────┬───┘  │
 │       │        │       │        │        │       │
 │   ┌───┴────────┴───────┴────────┴────────┴───┐   │
-│   │              Skills (126)                 │   │
+│   │              Skills (~67)                 │   │
 │   │   fin- / social- / int- / prod- / mkt-   │   │
 │   └──────────────────────────────────────────┘   │
 │                        │                         │
@@ -28,7 +28,7 @@ OpenClaude is a file-based, git-friendly framework. Everything is markdown, YAML
 
         ┌───────────────────────┐
         │   Scheduler (cron)    │ ─── routines.yaml
-        │   ADW Runner          │ ─── 27 Python scripts
+        │   ADW Runner          │ ─── 7 core + ~20 custom scripts
         │   JSONL Logs          │ ─── metrics + costs
         └───────────────────────┘
 
@@ -51,7 +51,6 @@ Skills are domain-specific instructions that teach Claude how to perform specifi
 
 | Prefix | Domain | Count |
 |--------|--------|-------|
-| `evo-` | Development framework | 45 |
 | `social-` | Social media | 17 |
 | `int-` | Integrations | 13 |
 | `fin-` | Financial | 11 |
@@ -63,9 +62,15 @@ Skills are domain-specific instructions that teach Claude how to perform specifi
 | `pulse-` | Community | 4 |
 | `sage-` | Strategy | 3 |
 
-### Routines (`ADWs/rotinas/`)
+> **Note:** `evo-` skills (Evo Method) were removed from this repo and are now maintained in the separate [EVO-METHOD](https://github.com/EvolutionAPI/EVO-METHOD) project. They are gitignored if present locally.
+
+### Routines (`ADWs/rotinas/` and `ADWs/rotinas/custom/`)
 
 Automated workflows that run on a schedule. Each routine is a Python script that invokes Claude Code CLI with a specific agent and skill.
+
+Routines are split into two tiers:
+- **Core** (`ADWs/rotinas/`) — 4 routines shipped with the repo (morning, eod, dashboard, review, triage, sync, memory).
+- **Custom** (`ADWs/rotinas/custom/`) — ~20 user-created routines (gitignored). These are workspace-specific (community, finance, social, licensing, etc.).
 
 **Runner** (`ADWs/runner.py`) — The execution engine that:
 - Invokes Claude Code CLI with `--output-format json`

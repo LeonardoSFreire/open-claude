@@ -42,37 +42,6 @@ def list_services():
         },
     ]
 
-    # Add Docker containers
-    try:
-        result = subprocess.run(
-            'docker ps --format "{{.Names}}\\t{{.Status}}\\t{{.Ports}}\\t{{.Image}}"',
-            shell=True, capture_output=True, text=True, timeout=5
-        )
-        if result.returncode == 0:
-            for line in result.stdout.strip().splitlines():
-                parts = line.split('\t')
-                if len(parts) >= 4:
-                    name, status, ports, image = parts[0], parts[1], parts[2], parts[3]
-                    # Extract port mapping
-                    port_str = ""
-                    if "0.0.0.0:" in ports:
-                        import re
-                        port_match = re.search(r'0\.0\.0\.0:(\d+)', ports)
-                        if port_match:
-                            port_str = f":{port_match.group(1)}"
-
-                    services.append({
-                        "id": f"docker-{name}",
-                        "name": name,
-                        "description": f"{image}{port_str}",
-                        "command": f"docker start {name}",
-                        "running": "Up" in status,
-                        "detail": status,
-                        "category": "docker",
-                    })
-    except Exception:
-        pass
-
     return jsonify(services)
 
 
@@ -81,16 +50,16 @@ WORKSPACE_STR = str(WORKSPACE)
 # ── Manual routine execution ─────────────────────────
 
 ROUTINE_SCRIPTS = {
-    "morning": "good_morning.py", "sync": "sync_meetings.py", "triage": "email_triage.py",
-    "review": "review_todoist.py", "memory": "memory_sync.py", "eod": "end_of_day.py",
-    "dashboard": "dashboard.py", "fin-pulse": "financial_pulse.py", "youtube": "youtube_report.py",
-    "instagram": "instagram_report.py", "linkedin": "linkedin_report.py", "social": "social_analytics.py",
-    "licensing": "licensing_daily.py", "weekly": "weekly_review.py", "health": "health_checkin.py",
-    "trends": "trends.py", "linear": "linear_review.py", "community": "community_daily.py",
-    "community-week": "community_weekly.py", "community-month": "community_monthly.py",
-    "github": "github_review.py", "faq": "faq_sync.py", "strategy": "strategy_digest.py",
-    "fin-weekly": "financial_weekly.py", "licensing-weekly": "licensing_weekly.py",
-    "fin-close": "monthly_close.py", "licensing-month": "licensing_monthly.py",
+    "morning": "good_morning.py", "sync": "custom/sync_meetings.py", "triage": "custom/email_triage.py",
+    "review": "custom/review_todoist.py", "memory": "memory_sync.py", "eod": "end_of_day.py",
+    "dashboard": "custom/dashboard.py", "fin-pulse": "custom/financial_pulse.py", "youtube": "custom/youtube_report.py",
+    "instagram": "custom/instagram_report.py", "linkedin": "custom/linkedin_report.py", "social": "custom/social_analytics.py",
+    "licensing": "licensing_daily.py", "weekly": "weekly_review.py", "health": "custom/health_checkin.py",
+    "trends": "custom/trends.py", "linear": "custom/linear_review.py", "community": "custom/community_daily.py",
+    "community-week": "custom/community_weekly.py", "community-month": "custom/community_monthly.py",
+    "github": "custom/github_review.py", "faq": "custom/faq_sync.py", "strategy": "custom/strategy_digest.py",
+    "fin-weekly": "custom/financial_weekly.py", "licensing-weekly": "licensing_weekly.py",
+    "fin-close": "custom/monthly_close.py", "licensing-month": "licensing_monthly.py",
 }
 
 
@@ -131,15 +100,6 @@ STOP_CMDS = {
 
 @bp.route("/api/services/<service_id>/start", methods=["POST"])
 def start_service(service_id):
-    # Docker containers
-    if service_id.startswith("docker-"):
-        container = service_id[7:]
-        try:
-            subprocess.run(f"docker start {container}", shell=True, timeout=10)
-            return jsonify({"status": "started", "id": service_id})
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-
     cmd = START_CMDS.get(service_id)
     if not cmd:
         return jsonify({"error": f"Unknown service: {service_id}"}), 400
@@ -219,32 +179,11 @@ def service_logs(service_id):
 
         return jsonify({"lines": ["Scheduler is not running. Click Start to launch it."]})
 
-    # Docker container logs
-    if service_id.startswith("docker-"):
-        container = service_id[7:]
-        try:
-            result = subprocess.run(f"docker logs --tail 100 {container}", shell=True, capture_output=True, text=True, timeout=5)
-            lines = [l for l in result.stdout.split('\n') if l.strip()]
-            if not lines:
-                lines = [l for l in result.stderr.split('\n') if l.strip()]
-            return jsonify({"lines": lines[-100:]})
-        except Exception:
-            return jsonify({"lines": [f"Failed to get logs for {container}"]})
-
     return jsonify({"error": "Unknown service"}), 400
 
 
 @bp.route("/api/services/<service_id>/stop", methods=["POST"])
 def stop_service(service_id):
-    # Docker containers
-    if service_id.startswith("docker-"):
-        container = service_id[7:]
-        try:
-            subprocess.run(f"docker stop {container}", shell=True, timeout=15)
-            return jsonify({"status": "stopped", "id": service_id})
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-
     cmd = STOP_CMDS.get(service_id)
     if not cmd:
         return jsonify({"error": f"Unknown service: {service_id}"}), 400

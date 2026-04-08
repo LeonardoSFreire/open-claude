@@ -68,34 +68,34 @@ def setup_schedule():
     """Configure all routines with their schedules."""
 
     # --- Daily ---
-    schedule.every().day.at("06:50").do(run_adw, "Review Todoist", "review_todoist.py")
+    schedule.every().day.at("06:50").do(run_adw, "Review Todoist", "custom/review_todoist.py")
     schedule.every().day.at("07:00").do(run_adw, "Good Morning", "good_morning.py")
-    schedule.every().day.at("07:15").do(run_adw, "Email Triage", "email_triage.py")
-    schedule.every(30).minutes.do(run_adw, "Sync Meetings", "sync_meetings.py")
-    schedule.every().day.at("20:00").do(run_adw, "Community Pulse", "community_daily.py")
-    schedule.every().day.at("20:15").do(run_adw, "FAQ Sync", "faq_sync.py")
+    schedule.every().day.at("07:15").do(run_adw, "Email Triage", "custom/email_triage.py")
+    schedule.every(30).minutes.do(run_adw, "Sync Meetings", "custom/sync_meetings.py")
+    schedule.every().day.at("20:00").do(run_adw, "Community Pulse", "custom/community_daily.py")
+    schedule.every().day.at("20:15").do(run_adw, "FAQ Sync", "custom/faq_sync.py")
     schedule.every().day.at("21:00").do(run_adw, "End of Day", "end_of_day.py")
     schedule.every().day.at("21:15").do(run_adw, "Memory Sync", "memory_sync.py")
-    schedule.every().day.at("18:00").do(run_adw, "Social Analytics Daily", "social_analytics.py")
+    schedule.every().day.at("18:00").do(run_adw, "Social Analytics Daily", "custom/social_analytics.py")
     schedule.every().day.at("18:30").do(run_adw, "Licensing Daily", "licensing_daily.py")
-    schedule.every().day.at("19:00").do(run_adw, "Financial Pulse", "financial_pulse.py")
-    schedule.every().day.at("21:30").do(run_adw, "Dashboard Consolidado", "dashboard.py")
+    schedule.every().day.at("19:00").do(run_adw, "Financial Pulse", "custom/financial_pulse.py")
+    schedule.every().day.at("21:30").do(run_adw, "Dashboard Consolidado", "custom/dashboard.py")
 
     # --- Weekly ---
     schedule.every().friday.at("08:00").do(run_adw, "Weekly Review", "weekly_review.py")
-    schedule.every().friday.at("08:30").do(run_adw, "Trends", "trends.py")
-    schedule.every().friday.at("09:00").do(run_adw, "Strategy Digest", "strategy_digest.py")
-    schedule.every().monday.at("09:00").do(run_adw, "Linear Review", "linear_review.py")
-    schedule.every().wednesday.at("09:00").do(run_adw, "Linear Review", "linear_review.py")
-    schedule.every().friday.at("09:00").do(run_adw, "Linear Review", "linear_review.py")
-    schedule.every().monday.at("09:15").do(run_adw, "GitHub Review", "github_review.py")
-    schedule.every().wednesday.at("09:15").do(run_adw, "GitHub Review", "github_review.py")
-    schedule.every().friday.at("09:15").do(run_adw, "GitHub Review", "github_review.py")
-    schedule.every().monday.at("09:30").do(run_adw, "Community Weekly", "community_weekly.py")
-    schedule.every().friday.at("07:30").do(run_adw, "Financial Weekly", "financial_weekly.py")
+    schedule.every().friday.at("08:30").do(run_adw, "Trends", "custom/trends.py")
+    schedule.every().friday.at("09:00").do(run_adw, "Strategy Digest", "custom/strategy_digest.py")
+    schedule.every().monday.at("09:00").do(run_adw, "Linear Review", "custom/linear_review.py")
+    schedule.every().wednesday.at("09:00").do(run_adw, "Linear Review", "custom/linear_review.py")
+    schedule.every().friday.at("09:00").do(run_adw, "Linear Review", "custom/linear_review.py")
+    schedule.every().monday.at("09:15").do(run_adw, "GitHub Review", "custom/github_review.py")
+    schedule.every().wednesday.at("09:15").do(run_adw, "GitHub Review", "custom/github_review.py")
+    schedule.every().friday.at("09:15").do(run_adw, "GitHub Review", "custom/github_review.py")
+    schedule.every().monday.at("09:30").do(run_adw, "Community Weekly", "custom/community_weekly.py")
+    schedule.every().friday.at("07:30").do(run_adw, "Financial Weekly", "custom/financial_weekly.py")
     schedule.every().friday.at("07:45").do(run_adw, "Licensing Weekly", "licensing_weekly.py")
-    schedule.every().friday.at("08:15").do(run_adw, "Social Analytics Weekly", "social_analytics.py")
-    schedule.every().sunday.at("10:00").do(run_adw, "Health Check-in", "health_checkin.py")
+    schedule.every().friday.at("08:15").do(run_adw, "Social Analytics Weekly", "custom/social_analytics.py")
+    schedule.every().sunday.at("10:00").do(run_adw, "Health Check-in", "custom/health_checkin.py")
 
     # --- Monthly (day 1) ---
     # Monthly close and community monthly run via check in the main loop (see below)
@@ -153,10 +153,10 @@ def main():
         # Monthly routines — run on day 1
         now = datetime.now()
         if now.day == 1 and now.hour == 8 and not monthly_close_ran:
-            run_adw("Monthly Close Kickoff", "monthly_close.py")
-            run_adw("Community Monthly", "community_monthly.py")
+            run_adw("Monthly Close Kickoff", "custom/monthly_close.py")
+            run_adw("Community Monthly", "custom/community_monthly.py")
             run_adw("Licensing Monthly", "licensing_monthly.py")
-            run_adw("Social Analytics Monthly", "social_analytics.py")
+            run_adw("Social Analytics Monthly", "custom/social_analytics.py")
             monthly_close_ran = True
         elif now.day != 1:
             monthly_close_ran = False

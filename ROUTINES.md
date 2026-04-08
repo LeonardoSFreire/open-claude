@@ -4,6 +4,16 @@ Guide to all workspace routines, their schedules, and responsible agents.
 
 ---
 
+> **Core vs Custom Routines**
+>
+> Routines are split into two directories:
+> - **`ADWs/rotinas/`** — 7 core routines that ship with the repo (morning, eod, dashboard, review, triage, sync, memory).
+> - **`ADWs/rotinas/custom/`** — ~20 custom routines created per-workspace (community, finance, social, licensing, etc.). This directory is **gitignored** — custom routines are user-specific and not tracked in version control.
+>
+> When creating new routines, place them in `ADWs/rotinas/custom/`.
+
+---
+
 ## Daily Routines
 
 | Time | Routine | Command | Agent | What It Does |

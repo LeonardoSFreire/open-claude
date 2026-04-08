@@ -32,16 +32,16 @@ workspace/strategy/*
 .claude/agent-memory/
 memory/
 
-# ── Product-specific (Evolution API proprietary) ─
+# ── Product-specific skills (not generic) ─
 .claude/skills/int-licensing/
 .claude/skills/int-whatsapp/
 .claude/skills/prod-licensing-daily/
 .claude/skills/prod-licensing-weekly/
 .claude/skills/prod-licensing-monthly/
 .claude/templates/html/licensing-report.html
-ADWs/rotinas/licensing_daily.py
-ADWs/rotinas/licensing_weekly.py
-ADWs/rotinas/licensing_monthly.py
+
+# ── Custom routines (user-specific, all in one place) ─
+ADWs/rotinas/custom/
 
 # ── Runtime data & logs ───────────────────
 ADWs/logs/

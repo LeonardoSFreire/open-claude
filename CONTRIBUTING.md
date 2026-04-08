@@ -35,7 +35,7 @@ Thank you for your interest in contributing to OpenClaude! This document provide
 1. Create `.claude/agents/my-agent.md` — follow the pattern in existing agents
 2. Create `.claude/commands/my-agent.md` — slash command to invoke it
 3. Add skills in `.claude/skills/prefix-*/SKILL.md`
-4. Add routines in `ADWs/rotinas/my_routine.py`
+4. Add routines in `ADWs/rotinas/custom/my_routine.py` (custom routines are gitignored — only core routines live in `ADWs/rotinas/`)
 5. Add HTML template in `.claude/templates/html/`
 6. Update `config/routines.yaml.example` with the new routine
 
