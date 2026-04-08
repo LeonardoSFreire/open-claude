@@ -32,7 +32,7 @@ It turns a single Claude Code installation into a team of 9 specialized agents �
 - **Native agent system** — agents are `.md` files with system prompts, not code
 - **Skills as instructions** — teach Claude new capabilities via markdown, not plugins
 - **MCP integrations** — first-class support for Google Calendar, Gmail, GitHub, Linear, Telegram, and more
-- **Slash commands** — `/ops`, `/finance`, `/community` invoke agents directly
+- **Slash commands** — `/clawdia`, `/flux`, `/pulse` invoke agents directly
 - **Persistent memory** — CLAUDE.md + per-agent memory survives across sessions
 - **CLI-first** — runs anywhere Claude Code runs (terminal, VS Code, JetBrains, web)
 
@@ -172,15 +172,15 @@ Open Claude Code in the project directory — it reads `CLAUDE.md` automatically
 
 ```bash
 # Use slash commands to invoke agents
-/ops           # Operations — agenda, emails, tasks, decisions
-/finance       # Financial — Stripe, ERP, cash flow, reports
-/projects      # Projects — Linear, GitHub, sprints, milestones
-/community     # Community — Discord, WhatsApp, sentiment, FAQ
-/social        # Social media — content, calendar, analytics
-/strategy      # Strategy — OKRs, roadmap, competitive analysis
-/sales         # Commercial — pipeline, proposals, qualification
-/courses       # Education — learning paths, modules
-/personal      # Personal — health, habits, routine
+/clawdia       # Ops — agenda, emails, tasks, decisions
+/flux          # Finance — Stripe, ERP, cash flow, reports
+/atlas         # Projects — Linear, GitHub, sprints, milestones
+/pulse         # Community — Discord, WhatsApp, sentiment, FAQ
+/pixel         # Social media — content, calendar, analytics
+/sage          # Strategy — OKRs, roadmap, competitive analysis
+/nex           # Sales — pipeline, proposals, qualification
+/mentor        # Courses — learning paths, modules
+/kai           # Personal — health, habits, routine
 
 # Or just describe what you need — Claude routes to the right agent
 ```
@@ -223,15 +223,15 @@ User (human)
     v
 Claude Code (orchestrator)
     |
-    +-- Ops       — agenda, emails, tasks, decisions, dashboard
-    +-- Finance   — Stripe, ERP, MRR, cash flow, monthly close
-    +-- Projects  — Linear, GitHub, milestones, sprints
-    +-- Community — Discord, WhatsApp, sentiment, FAQ
-    +-- Social    — content, calendar, cross-platform analytics
-    +-- Strategy  — OKRs, roadmap, prioritization, scenarios
-    +-- Sales     — pipeline, proposals, qualification
-    +-- Courses   — learning paths, modules
-    +-- Personal  — health, habits, routine (isolated domain)
+    +-- Clawdia   — ops: agenda, emails, tasks, decisions, dashboard
+    +-- Flux      — finance: Stripe, ERP, MRR, cash flow, monthly close
+    +-- Atlas     — projects: Linear, GitHub, milestones, sprints
+    +-- Pulse     — community: Discord, WhatsApp, sentiment, FAQ
+    +-- Pixel     — social: content, calendar, cross-platform analytics
+    +-- Sage      — strategy: OKRs, roadmap, prioritization, scenarios
+    +-- Nex       — sales: pipeline, proposals, qualification
+    +-- Mentor    — courses: learning paths, modules
+    +-- Kai       — personal: health, habits, routine (isolated domain)
 ```
 
 Each agent has:

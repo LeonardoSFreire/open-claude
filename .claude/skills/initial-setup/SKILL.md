@@ -19,15 +19,15 @@ Start with a warm welcome:
 
 | Command | Agent | What it does | Try saying... |
 |---------|-------|-------------|---------------|
-| `/ops` | **Operations** | Daily briefing, email triage, tasks, decisions, agenda | "good morning" or "what do I have today?" |
-| `/finance` | **Finance** | Stripe, ERP, cash flow, reports, monthly close | "financial pulse" or "how are the finances?" |
-| `/projects` | **Projects** | Linear, GitHub, sprints, milestones, blockers | "check linear" or "github review" |
-| `/community` | **Community** | Discord/WhatsApp pulse, FAQ, sentiment analysis | "community pulse" or "how's the community?" |
-| `/social` | **Social Media** | Content creation, analytics, posting calendar | "social analytics" or "write a post" |
-| `/strategy` | **Strategy** | OKRs, roadmap, competitive analysis, scenarios | "strategy digest" or "OKR review" |
-| `/sales` | **Sales** | Pipeline, proposals, lead qualification, follow-ups | "pipeline review" or "qualify this lead" |
-| `/courses` | **Courses** | Learning paths, modules, course creation | "create a course outline" |
-| `/personal` | **Personal** | Health tracking, habits, personal routine | "health check-in" |
+| `/clawdia` | **Clawdia** (Ops) | Daily briefing, email triage, tasks, decisions, agenda | "good morning" or "what do I have today?" |
+| `/flux` | **Flux** (Finance) | Stripe, ERP, cash flow, reports, monthly close | "financial pulse" or "how are the finances?" |
+| `/atlas` | **Atlas** (Projects) | Linear, GitHub, sprints, milestones, blockers | "check linear" or "github review" |
+| `/pulse` | **Pulse** (Community) | Discord/WhatsApp pulse, FAQ, sentiment analysis | "community pulse" or "how's the community?" |
+| `/pixel` | **Pixel** (Social) | Content creation, analytics, posting calendar | "social analytics" or "write a post" |
+| `/sage` | **Sage** (Strategy) | OKRs, roadmap, competitive analysis, scenarios | "strategy digest" or "OKR review" |
+| `/nex` | **Nex** (Sales) | Pipeline, proposals, lead qualification, follow-ups | "pipeline review" or "qualify this lead" |
+| `/mentor` | **Mentor** (Courses) | Learning paths, modules, course creation | "create a course outline" |
+| `/kai` | **Kai** (Personal) | Health tracking, habits, personal routine | "health check-in" |
 
 "You don't have to use slash commands — just describe what you need and I'll route to the right agent automatically."
 
