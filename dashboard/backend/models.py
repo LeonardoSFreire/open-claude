@@ -135,6 +135,31 @@ BUILTIN_ROLES = {
 }
 
 
+class System(db.Model):
+    __tablename__ = "systems"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(500))
+    url = db.Column(db.String(500))
+    container = db.Column(db.String(120))
+    icon = db.Column(db.String(10), default="📦")
+    type = db.Column(db.String(20), default="docker")  # docker, external, iframe
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "url": self.url,
+            "container": self.container,
+            "icon": self.icon,
+            "type": self.type,
+            "created_at": self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ") if self.created_at else None,
+        }
+
+
 class Role(db.Model):
     __tablename__ = "roles"
 
