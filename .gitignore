@@ -38,6 +38,10 @@ memory/
 .claude/skills/prod-licensing-weekly/
 .claude/skills/prod-licensing-monthly/
 
+# ── Custom agents (user-specific) ────────
+.claude/agents/custom-*
+.claude/commands/custom-*
+
 # ── Custom templates (user-specific) ─────
 .claude/templates/html/custom/
 .claude/templates/custom/

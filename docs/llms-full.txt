@@ -9,14 +9,27 @@ Complete reference.
 
 This guide walks through creating a new agent from scratch.
 
+> **Quick method:** Use the `create-agent` skill — it guides you through the process interactively. Just say "create an agent" or "new agent" in Claude Code.
+
+## Core vs Custom Agents
+
+| | Core | Custom |
+|---|---|---|
+| **Location** | `.claude/agents/{name}.md` | `.claude/agents/custom-{name}.md` |
+| **Git** | Tracked (ships with repo) | Gitignored (personal to your workspace) |
+| **Dashboard** | Green "core" badge | Gray "custom" badge |
+| **Examples** | clawdia-assistant, flux-finance | custom-devops, custom-support |
+
+Custom agents use the `custom-` prefix, which triggers gitignore rules so they stay personal to your workspace. The dashboard auto-discovers them and shows them alongside core agents.
+
 ## File Structure
 
 An agent requires two files:
 
 ```
 .claude/
-  agents/my-agent.md       # System prompt + frontmatter
-  commands/my-agent.md     # Slash command definition
+  agents/custom-my-agent.md       # System prompt + frontmatter
+  commands/custom-my-agent.md     # Slash command definition
 ```
 
 ## Step 1: Agent File
@@ -264,7 +277,19 @@ Memory is organized by type:
 
 Each memory file uses frontmatter (`name`, `description`, `type`) and a `MEMORY.md` index file tracks all entries. Agents read memory at the start of each session and update it as they learn.
 
-## All 9 Agents
+## Custom Agents
+
+You can create your own agents with the `custom-` prefix. Custom agents are gitignored (personal to your workspace) and appear in the dashboard with a gray "custom" badge.
+
+To create a custom agent, use the `create-agent` skill or see [Creating Agents](creating-agents.md).
+
+```
+.claude/agents/custom-devops.md      # Agent prompt
+.claude/commands/custom-devops.md    # Slash command
+.claude/agent-memory/custom-devops/  # Persistent memory
+```
+
+## All 10 Core Agents
 
 | Agent | File | Command | Domain | Color |
 |-------|------|---------|--------|-------|
@@ -277,6 +302,7 @@ Each memory file uses frontmatter (`name`, `description`, `type`) and a `MEMORY.
 | **Nex** | `nex-sales.md` | `/nex` | Sales: pipeline, proposals, qualification | - |
 | **Mentor** | `mentor-courses.md` | `/mentor` | Courses: learning paths, modules, academy | - |
 | **Kai** | `kai-personal-assistant.md` | `/kai` | Personal: health, habits, routine (isolated) | blue |
+| **Oracle** | `oracle.md` | `/oracle` | Workspace knowledge: docs, how-to, configuration | amber |
 
 ### Agent Roles in Detail
 
@@ -297,6 +323,8 @@ Each memory file uses frontmatter (`name`, `description`, `type`) and a `MEMORY.
 **Mentor** handles the course platform (Evo Academy). Learning paths, module creation, and educational content.
 
 **Kai** is the personal assistant with an isolated domain. Health tracking, habits, personal appointments, and routines. It does not handle professional matters.
+
+**Oracle** is the workspace knowledge agent. It answers questions about how OpenClaude works — agents, skills, routines, integrations, dashboard, configuration, and architecture — by reading the actual documentation before responding. No RAG or vector DB needed.
 
 
 ---
@@ -4853,7 +4881,7 @@ A skill is a directory in `.claude/skills/` containing a `SKILL.md` file with:
 
 Skills are organized by prefix:
 
-The repo ships **~81 skills** (non-evo). If you install [Evo Method](https://github.com/EvolutionAPI/EVO-METHOD) separately, you get ~45 additional `evo-` skills — these are gitignored from this repo but work normally when present locally.
+The repo ships **~82 skills** (non-evo). If you install [Evo Method](https://github.com/EvolutionAPI/EVO-METHOD) separately, you get ~45 additional `evo-` skills — these are gitignored from this repo but work normally when present locally.
 
 | Prefix | Category | Count | Examples |
 |--------|----------|-------|----------|

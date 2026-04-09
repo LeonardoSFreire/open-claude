@@ -76,7 +76,19 @@ Memory is organized by type:
 
 Each memory file uses frontmatter (`name`, `description`, `type`) and a `MEMORY.md` index file tracks all entries. Agents read memory at the start of each session and update it as they learn.
 
-## All 9 Agents
+## Custom Agents
+
+You can create your own agents with the `custom-` prefix. Custom agents are gitignored (personal to your workspace) and appear in the dashboard with a gray "custom" badge.
+
+To create a custom agent, use the `create-agent` skill or see [Creating Agents](creating-agents.md).
+
+```
+.claude/agents/custom-devops.md      # Agent prompt
+.claude/commands/custom-devops.md    # Slash command
+.claude/agent-memory/custom-devops/  # Persistent memory
+```
+
+## All 10 Core Agents
 
 | Agent | File | Command | Domain | Color |
 |-------|------|---------|--------|-------|
@@ -89,6 +101,7 @@ Each memory file uses frontmatter (`name`, `description`, `type`) and a `MEMORY.
 | **Nex** | `nex-sales.md` | `/nex` | Sales: pipeline, proposals, qualification | - |
 | **Mentor** | `mentor-courses.md` | `/mentor` | Courses: learning paths, modules, academy | - |
 | **Kai** | `kai-personal-assistant.md` | `/kai` | Personal: health, habits, routine (isolated) | blue |
+| **Oracle** | `oracle.md` | `/oracle` | Workspace knowledge: docs, how-to, configuration | amber |
 
 ### Agent Roles in Detail
 
@@ -109,3 +122,5 @@ Each memory file uses frontmatter (`name`, `description`, `type`) and a `MEMORY.
 **Mentor** handles the course platform (Evo Academy). Learning paths, module creation, and educational content.
 
 **Kai** is the personal assistant with an isolated domain. Health tracking, habits, personal appointments, and routines. It does not handle professional matters.
+
+**Oracle** is the workspace knowledge agent. It answers questions about how OpenClaude works — agents, skills, routines, integrations, dashboard, configuration, and architecture — by reading the actual documentation before responding. No RAG or vector DB needed.

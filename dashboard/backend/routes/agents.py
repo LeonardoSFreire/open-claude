@@ -26,11 +26,17 @@ def list_agents():
             content = safe_read(f) or ""
             fm = parse_frontmatter(content)
             name = f.stem
-            agents.append({
+            entry = {
                 "name": name,
                 "description": fm.get("description", ""),
                 "memory_count": _count_memory(name),
-            })
+                "custom": name.startswith("custom-"),
+            }
+            if fm.get("color"):
+                entry["color"] = fm["color"]
+            if fm.get("model"):
+                entry["model"] = fm["model"]
+            agents.append(entry)
     return jsonify(agents)
 
 

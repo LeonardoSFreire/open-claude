@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0] - 2026-04-09
+
+### Added
+- **Custom agents** — user-created agents with `custom-` prefix. Gitignored, auto-discovered by dashboard (gray "custom" badge vs green "core" badge). Backend returns `custom`, `color`, `model` fields from frontmatter.
+- **Oracle agent** — 10th core agent. `/oracle` workspace knowledge agent that answers questions about agents, skills, routines, integrations, and configuration by reading the actual documentation. No RAG needed — reads `docs/llms-full.txt` and source files directly.
+- **`create-agent` skill** — conversational interface to create custom agents (name, domain, personality, model, color, memory folder, slash command)
+- **`create-command` skill** — conversational interface to create standalone slash commands for Claude Code
+
+### Changed
+- **Agent count** — 9 → 10 core agents (Oracle added) across README, docs, and rules
+- **Dashboard Agents page** — core/custom badges, dynamic colors from frontmatter for custom agents, separate core/custom counters in stats bar
+- **Documentation** — updated agents overview, creating-agents guide (core vs custom section), skills overview
+
 ## [0.8.0] - 2026-04-09
 
 ### Added

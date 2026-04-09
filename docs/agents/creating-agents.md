@@ -2,14 +2,27 @@
 
 This guide walks through creating a new agent from scratch.
 
+> **Quick method:** Use the `create-agent` skill — it guides you through the process interactively. Just say "create an agent" or "new agent" in Claude Code.
+
+## Core vs Custom Agents
+
+| | Core | Custom |
+|---|---|---|
+| **Location** | `.claude/agents/{name}.md` | `.claude/agents/custom-{name}.md` |
+| **Git** | Tracked (ships with repo) | Gitignored (personal to your workspace) |
+| **Dashboard** | Green "core" badge | Gray "custom" badge |
+| **Examples** | clawdia-assistant, flux-finance | custom-devops, custom-support |
+
+Custom agents use the `custom-` prefix, which triggers gitignore rules so they stay personal to your workspace. The dashboard auto-discovers them and shows them alongside core agents.
+
 ## File Structure
 
 An agent requires two files:
 
 ```
 .claude/
-  agents/my-agent.md       # System prompt + frontmatter
-  commands/my-agent.md     # Slash command definition
+  agents/custom-my-agent.md       # System prompt + frontmatter
+  commands/custom-my-agent.md     # Slash command definition
 ```
 
 ## Step 1: Agent File

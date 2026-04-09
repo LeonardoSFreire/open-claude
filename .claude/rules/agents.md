@@ -1,6 +1,6 @@
-# Agents (9)
+# Agents (10 core + custom)
 
-Defined in `.claude/agents/`. Each agent has an isolated domain and can be invoked via command.
+Defined in `.claude/agents/`. Each agent has an isolated domain and can be invoked via command. Custom agents use `custom-` prefix (gitignored).
 
 | Agent | Command | Domain |
 |--------|---------|---------|
@@ -13,6 +13,15 @@ Defined in `.claude/agents/`. Each agent has an isolated domain and can be invok
 | **Pixel** | `/pixel` | Social media — content, calendar, analysis, reports |
 | **Nex** | `/nex` | Sales — pipeline, proposals, qualification |
 | **Mentor** | `/mentor` | Courses — learning paths, modules, Evo Academy |
+| **Oracle** | `/oracle` | Workspace knowledge — docs, how-to, configuration |
+
+## Custom Agents
+
+Users can create custom agents with `custom-` prefix:
+- Files: `.claude/agents/custom-{name}.md` + `.claude/commands/custom-{name}.md`
+- Memory: `.claude/agent-memory/custom-{name}/`
+- All gitignored (personal to workspace)
+- Use the `create-agent` skill to create one
 
 ## How to Use
 

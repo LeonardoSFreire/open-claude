@@ -44,8 +44,8 @@ It turns a single Claude Code installation into a team of 9 specialized agents �
 
 ## Key Features
 
-- **9 Specialized Agents** — Ops, Finance, Projects, Community, Social, Strategy, Sales, Courses, Personal
-- **~67 Skills** — organized by domain prefix (`social-`, `fin-`, `int-`, `prod-`, `mkt-`, `gog-`, `obs-`, `discord-`, `pulse-`, `sage-`)
+- **10 Core Agents + Custom** — Ops, Finance, Projects, Community, Social, Strategy, Sales, Courses, Personal, Knowledge — plus user-created `custom-*` agents (gitignored)
+- **~68 Skills** — organized by domain prefix (`social-`, `fin-`, `int-`, `prod-`, `mkt-`, `gog-`, `obs-`, `discord-`, `pulse-`, `sage-`)
 - **7 Core + 20 Custom Routines** — daily, weekly, and monthly ADWs managed by a scheduler (core routines ship with the repo; custom routines are user-created and gitignored)
 - **Web Dashboard** — React + Flask app with auth, roles, web terminal, service management
 - **17 Integrations** — Google Calendar, Gmail, Linear, GitHub, Discord, Telegram, Stripe, Omie, Fathom, Todoist, YouTube, Instagram, LinkedIn, Evolution API, Evolution Go, Evo CRM, and more
@@ -199,6 +199,7 @@ Open Claude Code in the project directory — it reads `CLAUDE.md` automatically
 /nex           # Sales — pipeline, proposals, qualification
 /mentor        # Courses — learning paths, modules
 /kai           # Personal — health, habits, routine
+/oracle        # Knowledge — workspace docs, how-to, configuration
 
 # Or just describe what you need — Claude routes to the right agent
 ```

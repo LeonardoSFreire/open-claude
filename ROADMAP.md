@@ -63,8 +63,8 @@
   - [ ] **Legal / Compliance Agent** — contracts, renewals, GDPR/LGPD, compliance checklists
   - [ ] **Product Agent** — discovery, feature prioritization (RICE/ICE), PLG metrics, feedback loop
   - [ ] **Data / BI Agent** — cross-area consolidated dashboard, unified KPIs, alerts, trend analysis
-- [ ] 💡 **Custom agents** — define spec and UX for user-created agents: naming, memory isolation, skill scope, onboarding
-- [ ] 💡 **Help agent** — agent that answers questions about the workspace using its own documentation (RAG)
+- [x] **Custom agents** — `custom-` prefix, gitignored, auto-discovered by dashboard (core/custom badges), `create-agent` skill, `create-command` skill
+- [x] **Help agent (Oracle)** — `/oracle` answers questions about the workspace by reading the actual docs. No RAG needed — reads `docs/llms-full.txt` and source files directly
 
 ### Routines & Scheduling
 

@@ -19,6 +19,9 @@ interface Agent {
   name: string
   description: string
   memory_count: number
+  custom?: boolean
+  color?: string
+  model?: string
 }
 
 interface AgentMeta {
@@ -114,8 +117,19 @@ const DEFAULT_META: AgentMeta = {
   label: 'Agent',
 }
 
-function getMeta(name: string): AgentMeta {
-  return AGENT_META[name] || DEFAULT_META
+function getMeta(name: string, agent?: Agent): AgentMeta {
+  if (AGENT_META[name]) return AGENT_META[name]
+  if (agent?.color) {
+    const c = agent.color
+    return {
+      ...DEFAULT_META,
+      color: c,
+      colorMuted: `${c}1F`,
+      glowColor: `${c}26`,
+      command: agent.custom ? `/custom-${name.replace('custom-', '')}` : '',
+    }
+  }
+  return DEFAULT_META
 }
 
 function formatAgentName(name: string): string {
@@ -126,7 +140,7 @@ function formatAgentName(name: string): string {
 }
 
 function AgentCard({ agent, isRunning }: { agent: Agent; isRunning: boolean }) {
-  const meta = getMeta(agent.name)
+  const meta = getMeta(agent.name, agent)
   const Icon = meta.icon
   const isActive = agent.memory_count > 0
 
@@ -183,12 +197,23 @@ function AgentCard({ agent, isRunning }: { agent: Agent; isRunning: boolean }) {
         <h3 className="text-[15px] font-semibold text-[#e6edf3] transition-colors duration-200 group-hover:text-white">
           {formatAgentName(agent.name)}
         </h3>
-        <span
-          className="mt-1 inline-block text-[11px] font-medium uppercase tracking-wider"
-          style={{ color: meta.color, opacity: 0.8 }}
-        >
-          {meta.label}
-        </span>
+        <div className="mt-1 flex items-center gap-2">
+          <span
+            className="inline-block text-[11px] font-medium uppercase tracking-wider"
+            style={{ color: meta.color, opacity: 0.8 }}
+          >
+            {meta.label}
+          </span>
+          {agent.custom ? (
+            <span className="rounded-full bg-[#6B7280]/10 px-2 py-0.5 text-[10px] font-medium text-[#6B7280] border border-[#6B7280]/20">
+              custom
+            </span>
+          ) : (
+            <span className="rounded-full bg-[#22C55E]/10 px-2 py-0.5 text-[10px] font-medium text-[#22C55E] border border-[#22C55E]/20">
+              core
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Description */}
@@ -268,6 +293,8 @@ export default function Agents() {
 
   const totalMemories = agents.reduce((sum, a) => sum + a.memory_count, 0)
   const activeCount = agents.filter((a) => a.memory_count > 0).length
+  const coreCount = agents.filter((a) => !a.custom).length
+  const customCount = agents.filter((a) => a.custom).length
 
   return (
     <div>
@@ -296,9 +323,17 @@ export default function Agents() {
             <div className="flex items-center gap-2">
               <Bot size={14} className="text-[#667085]" />
               <span className="text-[#8b949e]">
-                <span className="font-medium text-[#e6edf3]">{agents.length}</span> agents
+                <span className="font-medium text-[#e6edf3]">{coreCount}</span> core
               </span>
             </div>
+            {customCount > 0 && (
+              <div className="flex items-center gap-2">
+                <Bot size={14} className="text-[#6B7280]" />
+                <span className="text-[#8b949e]">
+                  <span className="font-medium text-[#e6edf3]">{customCount}</span> custom
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
