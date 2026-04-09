@@ -231,6 +231,75 @@ def run_skill(skill_name: str, args: str = "", log_name: str = None, timeout: in
     return run_claude(prompt, log_name or skill_name, timeout, agent=agent)
 
 
+def run_script(func, log_name: str = "unnamed", timeout: int = 120) -> dict:
+    """
+    Execute a pure Python function (no Claude CLI, no AI, no tokens).
+    Same logging/metrics as run_claude but with cost=0.
+
+    Args:
+        func: Callable that returns {"ok": bool, "summary": str, "data": ...}
+        log_name: Name for logs
+        timeout: Timeout in seconds
+    """
+    console.print(f"  [step]▶[/step] {log_name} [dim]systematic[/dim]", end="")
+    start_time = datetime.now()
+
+    try:
+        import signal
+
+        def _timeout_handler(signum, frame):
+            raise TimeoutError(f"Timeout after {timeout}s")
+
+        old_handler = signal.signal(signal.SIGALRM, _timeout_handler)
+        signal.alarm(timeout)
+
+        try:
+            result = func()
+        finally:
+            signal.alarm(0)
+            signal.signal(signal.SIGALRM, old_handler)
+
+        duration = (datetime.now() - start_time).total_seconds()
+        ok = result.get("ok", True) if isinstance(result, dict) else bool(result)
+        summary_text = result.get("summary", str(result)) if isinstance(result, dict) else str(result)
+        returncode = 0 if ok else 1
+
+        _log_to_file(log_name, f"[systematic] {log_name}", summary_text, "", returncode, duration)
+        _save_metrics(log_name, duration, returncode, "system", summary_text)
+
+        if ok:
+            console.print(f"\r  [success]✓[/success] {log_name} [dim]({duration:.1f}s | {summary_text})[/dim]")
+        else:
+            console.print(f"\r  [error]✗[/error] {log_name} [dim]({duration:.1f}s | {summary_text})[/dim]")
+
+        return {
+            "success": ok,
+            "stdout": summary_text,
+            "stderr": "",
+            "returncode": returncode,
+            "duration": duration,
+            "usage": None,
+        }
+
+    except TimeoutError:
+        duration = (datetime.now() - start_time).total_seconds()
+        console.print(f"\r  [error]✗[/error] {log_name} [warning](timeout {timeout}s)[/warning]")
+        _log_to_file(log_name, f"[systematic] {log_name}", "", f"Timeout after {timeout}s", -1, duration)
+        return {"success": False, "stdout": "", "stderr": f"Timeout after {timeout}s", "returncode": -1, "duration": duration}
+
+    except KeyboardInterrupt:
+        duration = (datetime.now() - start_time).total_seconds()
+        console.print(f"\n  [warning]⚠ Cancelled by user[/warning]")
+        raise
+
+    except Exception as e:
+        duration = (datetime.now() - start_time).total_seconds()
+        console.print(f"\r  [error]✗[/error] {log_name} [error]({e})[/error]")
+        _log_to_file(log_name, f"[systematic] {log_name}", "", str(e), -3, duration)
+        _save_metrics(log_name, duration, -3, "system", str(e))
+        return {"success": False, "stdout": "", "stderr": str(e), "returncode": -3, "duration": duration}
+
+
 def banner(title: str, subtitle: str = "", color: str = "cyan"):
     content = f"[bold white]{title}[/bold white]"
     if subtitle:

@@ -70,7 +70,7 @@
 
 - [ ] 🔥 **Trigger registry** — define and manage named triggers (webhook, cron, event-based) that invoke skills or routines
 - [ ] **Non-recurrent scheduled actions** — one-off scheduled tasks (e.g., "post this on LinkedIn Friday at 10am") without creating a full routine
-- [ ] **Agent-less routines** — allow purely systematic cron operations without agent context (lighter/faster)
+- [x] **Systematic routines** — pure Python routines via `run_script()` — no AI, no tokens, no cost. `create-routine` skill generates the code
 
 ### Integrations
 

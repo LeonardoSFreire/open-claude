@@ -4475,7 +4475,10 @@ Instead of doing this manually, run `/create-routine` in Claude Code. It generat
 
 # Routines Overview
 
-Routines are automated workflows (ADWs -- AI Developer Workflows) that run on a schedule. Each routine is a Python script that invokes a skill through an agent via the Claude Code CLI.
+Routines are automated workflows (ADWs -- AI Developer Workflows) that run on a schedule. There are two types:
+
+- **AI routines** -- invoke Claude Code CLI with an agent to perform reasoning tasks (reports, analysis, decisions). Cost tokens per run.
+- **Systematic routines** -- pure Python scripts that perform deterministic operations (API calls, file ops, data transforms). No AI, no tokens, no cost, runs in seconds.
 
 ## Core vs Custom
 
@@ -4507,14 +4510,15 @@ ADWs/routines/
 
 All routines use `ADWs/runner.py`, which provides:
 
-- **`run_skill(skill, log_name, timeout, agent)`** -- executes a skill via Claude Code CLI
-- **`run_claude(prompt, log_name, timeout, agent)`** -- executes a raw prompt
+- **`run_skill(skill, log_name, timeout, agent)`** -- executes a skill via Claude Code CLI (AI routine)
+- **`run_claude(prompt, log_name, timeout, agent)`** -- executes a raw prompt (AI routine)
+- **`run_script(func, log_name, timeout)`** -- executes a pure Python function (systematic routine, no AI)
 - **`banner(title, subtitle)`** -- prints a styled header
 - **`summary(results, title)`** -- prints execution summary with cost/token stats
 
 The runner handles:
-- Invoking `claude --print --dangerously-skip-permissions --output-format json`
-- Passing the `--agent` flag to run as a specific agent
+- Invoking `claude --print --dangerously-skip-permissions --output-format json` (AI routines)
+- Executing Python functions directly with timeout protection (systematic routines)
 - Logging to JSONL files (`ADWs/logs/YYYY-MM-DD.jsonl`)
 - Saving detailed logs (`ADWs/logs/detail/`)
 - Accumulating metrics per routine (`ADWs/logs/metrics.json`)

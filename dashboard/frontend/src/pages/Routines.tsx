@@ -19,6 +19,7 @@ import {
   Camera,
   Users,
   Compass,
+  Cog,
   type LucideIcon,
 } from 'lucide-react'
 import { api } from '../lib/api'
@@ -50,10 +51,12 @@ const AGENT_META: Record<string, { icon: LucideIcon; color: string; colorMuted: 
   'sage': { icon: Compass, color: '#818CF8', colorMuted: 'rgba(129,140,248,0.12)', label: 'Sage' },
 }
 
+const SYSTEM_META = { icon: Cog, color: '#8b949e', colorMuted: 'rgba(139,148,158,0.12)', label: 'systematic' }
 const DEFAULT_AGENT_META = { icon: Bot, color: '#8b949e', colorMuted: 'rgba(139,148,158,0.12)', label: '' }
 
 function getAgentMeta(agentName: string) {
   if (!agentName) return DEFAULT_AGENT_META
+  if (agentName.toLowerCase() === 'system') return SYSTEM_META
   const key = Object.keys(AGENT_META).find((k) => agentName.toLowerCase().includes(k))
   return key ? AGENT_META[key] : DEFAULT_AGENT_META
 }

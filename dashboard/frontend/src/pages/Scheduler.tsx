@@ -267,7 +267,11 @@ export default function Scheduler() {
                   <code className="text-[11px] bg-[#0d1117] border border-[#21262d] px-2 py-1 rounded text-[#e6edf3] font-mono">{task.schedule}</code>
                 </td>
                 <td className="p-4">
-                  {task.agent ? (
+                  {task.agent === 'system' ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#8b949e]/10 border border-[#8b949e]/20 text-[#8b949e]">
+                      systematic
+                    </span>
+                  ) : task.agent ? (
                     <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#00FFA7]/8 border border-[#00FFA7]/20 text-[#00FFA7]">
                       @{task.agent}
                     </span>
